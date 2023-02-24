@@ -1,0 +1,200 @@
+<style>
+ * {
+  font-family: TTPositive;
+  box-sizing: border-box;
+  margin:0;
+  padding:0;
+}
+@media only screen and (max-width: 900px) {
+  * {
+    font-size: 20px;
+  }
+  .quiz_container_mobile {
+    width: 90%;
+  }
+}
+/* On screens that are 600px wide or less, the background color is olive */
+@media only screen and (max-width: 600px) {
+  * {
+    font-size: 20px;
+  }
+}
+
+.quiz {
+  font-family: TTPositive, sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 1.5;
+  margin-top: 50px;
+  width: 100%;
+  max-width: 800px;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  padding-top: 45px;
+  padding-bottom: 45px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.question {
+  margin-bottom: 10px;
+  word-wrap: break-word; 
+  transition: 0.5s;
+}
+.button_container {
+  position: relative;
+  margin-left:auto;
+  margin-right:auto;
+  width: 100%;
+  max-width: 500px;
+  left:;
+  height: 80px;
+}
+.submit_button,
+.restart_button,
+.disabled_button {
+  position: absolute;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  font-size: 16px;
+  font-weight: 400;
+  width: 160px;
+  height: 60px;
+  border-width: 0;
+  border-style: solid;
+  border-radius: 100px;
+  border-color: #4d4d4d;
+  background-color: #1F2229;
+  color: #ffffff;
+}
+.restart_button {
+  display:none;
+}
+.submit_button:hover,
+.restart_button:hover {
+  background-color: #626469;
+  color: #ffffff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.submit_button:active,
+.restart_button:active {
+  background-color: #ffffff;
+}
+
+.disabled_button {
+  background-color: #626469;
+  color: grey;
+  user-select: none;
+}
+
+.comments_container {
+  position: relative;
+  margin:auto;
+  font-weight: 300;
+  font-size: 24px;
+  width: 100%;
+  max-width:700px;
+  margin: auto;
+  z-index:1;
+  top:0;
+}
+
+.commentary {
+  position: relative;
+  /* opacity: 0.1; */
+  z-index: 1;
+  top: 0;
+  display: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  border-width: 0px;
+  border-radius: 5px;
+  color: #ffffff;
+  background-color: red;
+}
+
+.cb_container {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-left: 35px;
+}
+/* Hide the browser's default checkbox */
+.cb_container input {
+  position: absolute;
+  cursor: pointer;
+  opacity: 0;
+  height: 0;
+  weight: 0;
+}
+.checkmark {
+  position: absolute;
+  height: 24.5px;
+  width: 24.5px;
+  top:1px;
+  left:0;
+  vertical-align: middle;
+  background-color: none;
+  border: 2px solid;
+  border-radius: 50%;
+  border-color: #7a7a7a;
+  transition: 0.3s;
+}
+.cb_container:hover input ~ .checkmark{
+  border-color: #000000;
+  transition: 0.3s;
+}
+.cb_container input:checked ~ .checkmark {
+  background-color: #000000;
+  border-color: #000000;
+  transition: 0.3s;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  transition: 0.3s;
+}
+.cb_container input:checked ~ .checkmark:after {
+  display: block;
+  transition: 0.3s;
+}
+.cb_container .checkmark:after {
+  left: 5.5px;
+  top: 5.5px;
+  width: 9px;
+  height: 9px;
+  background-color:#ffffff;
+  border-radius: 50%;
+  border: solid white;
+  transition: 0.3s;
+}
+.invisible {
+  opacity:0.1;
+  transition: 0.5s;
+}
+label {
+  opacity: 1;
+  transition: 0.5s;
+}
+
+#brick {
+  width: 100%;
+  height: 0px;
+  background: #EE6B47;
+  position: relative;
+  cursor: pointer;
+}
+
+</style>

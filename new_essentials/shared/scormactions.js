@@ -47,7 +47,7 @@ function doStart(){
 */
 
 function theEnd(){
-RecordTest(100);
+RecordTest(score);
 reachedEnd = true;
 doExit();
 window.close();
@@ -112,11 +112,9 @@ function RecordTest(score){
   //consider 70% to be passing
   if (score >= 70){
       ScormProcessSetValue("cmi.core.lesson_status", "completed");
-      // ScormProcessSetValue("cmi.completion_status", "completed");
   }
   else{
       ScormProcessSetValue("cmi.core.lesson_status", "failed");
-      // ScormProcessSetValue("cmi.completion_status", "completed");
   }
 }
 //SCORM requires time to be formatted in a specific way

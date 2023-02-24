@@ -1,17 +1,41 @@
 import os
 import re
 import zipfile
+import json
+import base64 as b64
+
+
+def add_questions():
+    file = open('questions.json', encoding='utf-8')
+    questions = json.load(file)
+    for i in questions.values():
+        i['question'] = str(b64.b64encode(bytes(i['question'], 'utf-8')))[2:-1]
+        for j in i['answers'].values():
+            for k in range(len(j)):
+                j[k] = str(b64.b64encode(bytes(j[k], 'utf-8')))[2:-1]
+    new_json = json.dumps(questions)
+    quiz = open('shared/proto_quiz.js', encoding='utf-8')
+    x = quiz.read().split('//questions_here//')
+    x.append(new_json)
+    (x[1], x[2]) = (x[2], x[1])
+    quiz.close()
+    new_file = open('shared/quiz.js', 'w', encoding='utf-8')
+    new_file.write(''.join(x))
+    new_file.close()
+    file.close()
 
 
 def pack_up():
     needed = ['imsmanifest.xml',
               'index.html',
               '404.html']
+    not_needed = ['proto_quiz.js',
+                  'to_lms.zip']
     z = zipfile.ZipFile('to_lms.zip', 'w')
     for folders, subfolders, files in os.walk('.'):
         if folders != '.':
             for file in files:
-                if file != 'to_lms.zip':
+                if file not in not_needed:
                     z.write(os.path.join(folders, file))
         else:
             for file in files:
@@ -43,12 +67,12 @@ def rename_index():
     directory = os.listdir()
     for i in directory:
         if 'page' in i:
-            os.rename(i, 'index.html')
+            os.rename(i, 'proto_index.html')
 
 
 def add_scripts_to_index():
-    file = open('index.html', encoding='utf-8').read()
-    new_file = open('new_index.html', 'w', encoding='utf-8')
+    file = open('proto_index.html', encoding='utf-8').read()
+    new_file = open('index.html', 'w', encoding='utf-8')
     my_insert = open('index_draft.html', encoding='utf-8').read()
     a = re.search('</head>', file)
     start = file[:a.start()]
@@ -56,23 +80,13 @@ def add_scripts_to_index():
     new_file.write(start + my_insert + end)
     new_file.close()
 
-    file = open('new_index.html', encoding='utf-8').read()
-    new_file = open('index.html', 'w', encoding='utf-8')
-    button = open('tilda_button.html', encoding='utf-8').read()
-    x = file.split('<!--END BUTTON-->')
-    x[1] = x[1].lstrip('<!--END BUTTON-->')
-    x.append(button)
-    (x[1], x[2]) = (x[2], x[1])
-    new_file.write(''.join(x))
-    new_file.close()
-
 
 def main():
+    add_questions()
     rename_index()
     add_scripts_to_index()
     collect_files()
     pack_up()
-
 
 
 if __name__ == '__main__':
