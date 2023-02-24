@@ -47,10 +47,10 @@ function doStart(){
 */
 
 function theEnd(){
-RecordTest(score);
-reachedEnd = true;
-doExit();
-window.close();
+  RecordTest((score / question_objects.length) * 100);
+  reachedEnd = true;
+  doExit();
+  window.close();
 }
 
 
@@ -109,8 +109,8 @@ function RecordTest(score){
   ScormProcessSetValue("cmi.core.score.max", "100");
   // var scaledScore = score / 100;
   // ScormProcessSetValue("cmi.score.scaled", scaledScore);
-  //consider 70% to be passing
-  if (score >= 70){
+  //consider 80% to be passing
+  if (score >= 80){
       ScormProcessSetValue("cmi.core.lesson_status", "completed");
   }
   else{
