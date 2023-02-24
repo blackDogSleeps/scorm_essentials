@@ -1,22 +1,22 @@
-* {
-  font-family: TTPositive;
-  box-sizing: border-box;
-  margin:0;
-  padding:0;
-}
 @media only screen and (max-width: 900px) {
-  * {
-    font-size: 20px;
-  }
   .quiz_container_mobile {
     width: 90%;
   }
 }
 /* On screens that are 600px wide or less, the background color is olive */
 @media only screen and (max-width: 600px) {
-  * {
-    font-size: 20px;
+  .question,
+  .answer {
+    font-size: 16px;
   }
+
+  .quiz_container_mobile {
+    width: 100px;
+  }
+}
+
+.answer {
+  word-wrap: break-word;
 }
 
 .quiz {
@@ -25,7 +25,7 @@
   font-size: 20px;
   line-height: 1.5;
   margin-top: 50px;
-  width: 100%;
+  width: calc(100% - 100px);
   max-width: 800px;
   border-radius: 10px;
   background-color: #f2f2f2;
@@ -35,10 +35,12 @@
   padding-right: 50px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 100px;
 }
+
 .question {
   margin-bottom: 10px;
-  word-wrap: break-word; 
+  word-wrap: break-word;
   transition: 0.5s;
 }
 .button_container {
