@@ -6,7 +6,8 @@
 /* On screens that are 600px wide or less, the background color is olive */
 @media only screen and (max-width: 600px) {
   .question,
-  .answer {
+  .answer,
+  .commentary {
     font-size: 16px;
   }
 
