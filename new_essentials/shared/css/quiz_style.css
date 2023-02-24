@@ -1,5 +1,4 @@
-<style>
- * {
+* {
   font-family: TTPositive;
   box-sizing: border-box;
   margin:0;
@@ -188,13 +187,3 @@ label {
   opacity: 1;
   transition: 0.5s;
 }
-
-#brick {
-  width: 100%;
-  height: 0px;
-  background: #EE6B47;
-  position: relative;
-  cursor: pointer;
-}
-
-</style>
