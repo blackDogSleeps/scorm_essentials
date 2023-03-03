@@ -8,10 +8,6 @@ let id_number = 0;
 let score = 0;
 let result = {};
 let res = [];
-let m_res = [];
-let m_res_wrong = [];
-let multi_correct_count = 0;
-let checked_multi_correct = 0;
 let lastClick = 0;
 const question_objects = Object.values(questions);
 
@@ -44,9 +40,6 @@ function makeAnswer(answer_keys, answer_pack, answers_container, key) {
       checkmark.className = 'checkmark_m';
       id_number += 1;
       checkmark.id = 'checkbox_' + id_number;
-      if (b64_to_utf8(answer_pack[answer_keys[i]][0]) == 'true'){
-        multi_correct_count += 1;
-      }
     }
 
     answer.appendChild(input);
@@ -86,6 +79,8 @@ function getAnswer() {
 
 
 function sendMultiAnswer(q_container) {
+  let multi_correct_count = result[utf8_to_b64(q_container.childNodes[0].innerText)];
+  let checked_multi_correct = 0;
   for (let x of q_container.parentNode.getElementsByClassName('answer')) {
     let comment = document.createElement('p');
     if (x.childElementCount > 2) {
@@ -118,6 +113,8 @@ function sendMultiAnswer(q_container) {
     let comment = q_container.parentNode.getElementsByClassName('commentary');
     $(comment).slideDown(800);
   }
+  checked = 0;
+  dict.clear();
 }
 
 
@@ -164,6 +161,7 @@ function make_quiz() {
     let answers_container = document.createElement('div');
     let button_container = document.createElement('div');
     let button = document.createElement('button');
+    let multi_correct_count = 0;
 
     twidth.classList.add('t-width', 't-width_100');
     quiz.classList.add('quiz', 'quiz_container_mobile');
@@ -184,9 +182,14 @@ function make_quiz() {
     else {
       addQuestion(question_objects[i]['question_m'],
                   question_container);
+      for (let x of Object.values(question_objects[i]['answers'])) {
+        if (b64_to_utf8(x[0]) == 'true') {
+          multi_correct_count += 1;
+        }
+      }
+      result[question_objects[i]['question_m']] = multi_correct_count;
       button.classList.add('multi');
     }
-
 
     makeAnswer(Object.keys(question_objects[i].answers),
                question_objects[i].answers,

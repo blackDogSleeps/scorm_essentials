@@ -9,10 +9,19 @@ def add_questions():
     file = open('questions.json', encoding='utf-8')
     questions = json.load(file)
     for i in questions.values():
-        i['question'] = str(b64.b64encode(bytes(i['question'], 'utf-8')))[2:-1]
-        for j in i['answers'].values():
-            for k in range(len(j)):
-                j[k] = str(b64.b64encode(bytes(j[k], 'utf-8')))[2:-1]
+        new_answers = {}
+        for j in i.keys():
+            if 'question' in j:
+                i[j] = str(b64.b64encode(bytes(i[j], 'utf-8')))[2:-1]
+        old_keys = i['answers'].keys()
+        for key, value in i['answers'].items():
+            new_key = str(b64.b64encode(bytes(key, 'utf-8')))[2:-1]
+            new_value = [
+                str(b64.b64encode(bytes(value[0], 'utf-8')))[2:-1],
+                str(b64.b64encode(bytes(value[1], 'utf-8')))[2:-1]
+            ]
+            new_answers[new_key] = new_value
+        i['answers'] = new_answers
     new_json = json.dumps(questions)
     quiz = open('shared/proto_quiz.js', encoding='utf-8')
     x = quiz.read().split('//questions_here//')
@@ -45,8 +54,11 @@ def pack_up():
 
 
 def collect_files():
-    new_file = open('imsmanifest.xml', 'w')
-    a_file = open('manifest_template.xml').read()
+    new_file = open('imsmanifest.xml', 'w', encoding='utf-8')
+    a_file = open('manifest_template.xml', encoding='utf-8').read()
+    index = open('index.html', encoding='utf-8').read()
+    title = index.split('<title>')[1].split('</title>')[0]
+    a_file = re.sub('CHANGE_TITLE', title, a_file)
     new_file.write(a_file)
     d = os.listdir('.')
     for i in d:
