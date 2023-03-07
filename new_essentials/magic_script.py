@@ -34,13 +34,12 @@ def add_questions():
     file.close()
 
 
-def pack_up():
+def pack_up(title):
     needed = ['imsmanifest.xml',
               'index.html',
               '404.html']
-    not_needed = ['proto_quiz.js',
-                  'to_lms.zip']
-    z = zipfile.ZipFile('to_lms.zip', 'w')
+    not_needed = ['proto_quiz.js']
+    z = zipfile.ZipFile(f'{title}.zip', 'w')
     for folders, subfolders, files in os.walk('.'):
         if folders != '.':
             for file in files:
@@ -73,6 +72,7 @@ def collect_files():
     ending = '''    </resource>\n  </resources>\n</manifest>'''
     new_file.write(ending)
     new_file.close()
+    pack_up(title)
 
 
 def rename_index():
@@ -98,7 +98,6 @@ def main():
     rename_index()
     add_scripts_to_index()
     collect_files()
-    pack_up()
 
 
 if __name__ == '__main__':
