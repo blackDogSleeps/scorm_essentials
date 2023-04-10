@@ -26,9 +26,9 @@ def add_questions_csv():
     count = 0
     
     for row in y:
-        if row[1] == 'm':
+        if row[1] == 'multi':
             question_m.update({'question_m':encodeb64(row[0])})
-        elif row[1] == '' and row[0] != '':
+        elif row[1] == 'single':
             question.update({'question':encodeb64(row[0])})
         elif 'TRUE' in row[1] or 'FALSE' in row[1]:
             answers.update({encodeb64(row[0]):[encodeb64(row[1].casefold()), 
