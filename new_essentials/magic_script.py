@@ -2,10 +2,66 @@ import os
 import re
 import zipfile
 import json
+import csv
 import base64 as b64
 
 
-def add_questions():
+def encodeb64(string):
+    return str(b64.b64encode(bytes(string, 'utf-8')))[2:-1]
+
+
+def add_questions_csv():
+    questions = {}
+    question_m = {}
+    question = {}
+    answers = {}
+    new_csv = open('new_questions.scv', 'w', encoding='UTF-8')
+    old_csv = open('questions.csv', encoding='UTF-8')
+    temp_csv = old_csv.read() + '\n,,\n'
+    old_csv.close()
+    new_csv.write(temp_csv)
+    new_csv.close()
+    file = open('new_questions.scv', encoding='UTF-8')
+    y = csv.reader(file)
+    count = 0
+    
+    for row in y:
+        if row[1] == 'm':
+            question_m.update({'question_m':encodeb64(row[0])})
+        elif row[1] == '' and row[0] != '':
+            question.update({'question':encodeb64(row[0])})
+        elif 'TRUE' in row[1] or 'FALSE' in row[1]:
+            answers.update({encodeb64(row[0]):[encodeb64(row[1].casefold()), 
+                                               encodeb64(row[2])]})
+        else:
+            count += 1
+            temp_answers = answers.copy()
+            answers.clear()
+            if len(question_m) > 0:
+                question_m.update({'answers':temp_answers})
+                temp_question = question_m.copy()
+                questions.update({'question_' + str(count):temp_question})
+                question_m.clear()
+            else:
+                question.update({'answers':temp_answers})
+                temp_question = question.copy()
+                questions.update({'question_' + str(count):temp_question})
+                question.clear()
+    
+    file.close()
+    os.remove('new_questions.scv')
+    new_json = json.dumps(questions, ensure_ascii=False)
+    quiz = open('shared/proto_quiz.js', encoding='utf-8')
+    x = quiz.read().split('//questions_here//')
+    x.append(new_json)
+    (x[1], x[2]) = (x[2], x[1])
+    quiz.close()
+    new_file = open('shared/quiz.js', 'w', encoding='utf-8')
+    new_file.write(''.join(x))
+    new_file.close()
+
+
+def add_questions_json():
     file = open('questions.json', encoding='utf-8')
     questions = json.load(file)
     for i in questions.values():
@@ -94,7 +150,8 @@ def add_scripts_to_index():
 
 
 def main():
-    add_questions()
+    # add_questions_json()
+    add_questions_csv()
     rename_index()
     add_scripts_to_index()
     collect_files()
