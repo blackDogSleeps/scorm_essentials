@@ -20,9 +20,9 @@ function addQuestion(text, container) {
 }
 
 
-function makeAnswer(answer_keys, answer_pack, answers_container, key) {
+function makeAnswer(answer_keys, answer_pack, answers_container, key, quiz_id) {
   for (i = 0; i < answer_keys.length; i++) {
-    result[answer_keys[i]] = answer_pack[answer_keys[i]];
+    result[utf8_to_b64(quiz_id)] = answer_pack
     answer = document.createElement('label');
     answer.className = 'cb_container answer';
     answer.innerText = b64_to_utf8(answer_keys[i]);
@@ -50,7 +50,7 @@ function makeAnswer(answer_keys, answer_pack, answers_container, key) {
 }
 
 
-function getMultiAnswer(reply) {
+function getMultiAnswer(reply, quiz_id) {
   if (reply.getElementsByTagName('input')[0].checked) {
     if (checked > 0) {
       checked -= 1;
@@ -59,26 +59,28 @@ function getMultiAnswer(reply) {
   } else {
     checked += 1;
     dict.set(utf8_to_b64(reply.innerText),
-             result[utf8_to_b64(reply.innerText)]);
+             result[utf8_to_b64(quiz_id)][utf8_to_b64(reply.innerText)]);
   }
 }
 
 
 function getAnswer() {
+  let quiz_id = this.parentElement.parentElement.id.slice(5);
   if (lastClick >= (Date.now() - delay)) {
     return
   }
   lastClick = Date.now();
   if (this.getElementsByTagName('span')[0].id) {
-    getMultiAnswer(this);
+    getMultiAnswer(this, quiz_id);
   }
   else {
-    res = result[utf8_to_b64(this.innerText)];
+    res = result[utf8_to_b64(quiz_id)][utf8_to_b64(this.innerText)];
   }
 }
 
 
 function sendMultiAnswer(q_container) {
+  let quiz_id = q_container.parentElement.id.slice(5);
   let multi_correct_count = result[utf8_to_b64(q_container.childNodes[0].innerText)];
   let checked_multi_correct = 0;
   for (let x of q_container.parentNode.getElementsByClassName('answer')) {
@@ -87,8 +89,12 @@ function sendMultiAnswer(q_container) {
       x.removeChild(x.children[2]);
     }
     comment.className = 'commentary';
-    comment.innerText = b64_to_utf8(result[utf8_to_b64(x.innerText)][1]);
-    if (b64_to_utf8(result[utf8_to_b64(x.innerText)][0]) == 'true') {
+    comment.innerText = b64_to_utf8(
+      result[
+        utf8_to_b64(quiz_id)][utf8_to_b64(x.innerText)][1]);
+    if (b64_to_utf8(
+      result[
+        utf8_to_b64(quiz_id)][utf8_to_b64(x.innerText)][0]) == 'true') {
       comment.style.background = 'green';
       comment.classList.add('right_answer');
     }
@@ -194,7 +200,8 @@ function make_quiz() {
     makeAnswer(Object.keys(question_objects[i].answers),
                question_objects[i].answers,
                answers_container,
-               key)
+               key,
+               i + 1)
 
 
     button_container.append(button);
@@ -239,7 +246,6 @@ function main() {
   make_quiz();
   addSubmitButton();
   addEndButton();
-
 }
 
 
