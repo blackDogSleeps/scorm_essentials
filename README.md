@@ -34,4 +34,4 @@
 4. Сохранить вопросы к уроку в файл ```questions.csv``` в папке проекта<br>
    [шаблон для вопросов](https://docs.google.com/spreadsheets/d/1reN13vyM4lkSS_lQQ2ThTQWcHTHV-MSZfRjmwWLB5lg/edit?usp=sharing)<br>
 5. Запустить ```magic_script.exe```
-6. Загрузить ```to_lms.zip``` в LMS
+6. Загрузить ```Название_Курса.zip``` в LMS
