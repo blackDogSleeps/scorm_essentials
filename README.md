@@ -30,7 +30,7 @@
 ## На компьютере
 1. Распаковать архив проекта
 2. Перейти в папку проекта
-3. Скопировать всё из папки ```new_essentials``` в папку проекта
+3. Скопировать всё из папки ```essentials``` в папку проекта
 4. Сохранить вопросы к уроку в файл ```questions.csv``` в папке проекта<br>
    [шаблон для вопросов](https://docs.google.com/spreadsheets/d/1reN13vyM4lkSS_lQQ2ThTQWcHTHV-MSZfRjmwWLB5lg/edit?usp=sharing)<br>
 5. Запустить ```magic_script.exe```
