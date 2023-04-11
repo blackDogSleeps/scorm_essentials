@@ -32,6 +32,6 @@
 2. Перейти в папку проекта
 3. Скопировать всё из папки ```new_essentials``` в папку проекта
 4. Сохранить вопросы к уроку в формате ```csv``` в файл ```questions.csv```
-  - [шаблон для вопросов](https://docs.google.com/spreadsheets/d/1reN13vyM4lkSS_lQQ2ThTQWcHTHV-MSZfRjmwWLB5lg/edit?usp=sharing) 
+   [шаблон для вопросов](https://docs.google.com/spreadsheets/d/1reN13vyM4lkSS_lQQ2ThTQWcHTHV-MSZfRjmwWLB5lg/edit?usp=sharing) 
 5. Запустить ```magic_script.exe```
 6. Загрузить ```to_lms.zip``` в LMS
