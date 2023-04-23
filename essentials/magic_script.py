@@ -17,7 +17,7 @@ def add_questions_csv():
     answers = {}
     new_csv = open('new_questions.csv', 'w', encoding='UTF-8')
     old_csv = open('questions.csv', encoding='UTF-8')
-    temp_csv = old_csv.read() + '\n,,\n'
+    temp_csv = old_csv.read().rstrip() + '\n,,\n'
     old_csv.close()
     new_csv.write(temp_csv)
     new_csv.close()
