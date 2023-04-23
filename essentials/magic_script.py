@@ -15,13 +15,13 @@ def add_questions_csv():
     question_m = {}
     question = {}
     answers = {}
-    new_csv = open('new_questions.scv', 'w', encoding='UTF-8')
+    new_csv = open('new_questions.csv', 'w', encoding='UTF-8')
     old_csv = open('questions.csv', encoding='UTF-8')
     temp_csv = old_csv.read() + '\n,,\n'
     old_csv.close()
     new_csv.write(temp_csv)
     new_csv.close()
-    file = open('new_questions.scv', encoding='UTF-8')
+    file = open('new_questions.csv', encoding='UTF-8')
     y = csv.reader(file)
     count = 0
     
@@ -49,7 +49,7 @@ def add_questions_csv():
                 question.clear()
     
     file.close()
-    os.remove('new_questions.scv')
+    os.remove('new_questions.csv')
     new_json = json.dumps(questions, ensure_ascii=False)
     quiz = open('shared/proto_quiz.js', encoding='utf-8')
     x = quiz.read().split('//questions_here//')
