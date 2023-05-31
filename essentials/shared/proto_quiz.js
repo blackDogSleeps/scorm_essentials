@@ -95,7 +95,7 @@ function sendMultiAnswer(q_container) {
     if (b64_to_utf8(
       result[
         utf8_to_b64(quiz_id)][utf8_to_b64(x.innerText)][0]) == 'true') {
-      comment.style.background = 'green';
+      comment.style.background = '#34c759';
       comment.classList.add('right_answer');
     }
     x.append(comment);
