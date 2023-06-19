@@ -23,17 +23,17 @@
 .quiz {
   font-family: TTPositive, sans-serif;
   font-weight: 300;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.5;
   margin-top: 50px;
-  width: calc(100% - 100px);
-  max-width: 800px;
+  width: 1001px;
+  max-width: 1001px;
   border-radius: 10px;
   background-color: #ebedf0;
   padding-top: 45px;
   padding-bottom: 45px;
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 30px;
+  padding-right: 30px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 100px;
