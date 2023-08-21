@@ -132,7 +132,7 @@ function sendSingleAnswer(commentary, q_container) {
   commentary.innerText = b64_to_utf8(res[1]);
   if (res[0] == utf8_to_b64('true')) {
     score += 1;
-    commentary.style.background = 'green';
+    commentary.style.background = 'rgb(52, 199, 89)';
   }
   return commentary;
 }
