@@ -79,15 +79,24 @@ function getAnswer() {
 }
 
 
+function clearExtraComment(x) {
+  if (x.childElementCount > 2) {
+    for (item of x.children) {
+      if (item.tagName == 'p' && item.classList.contains('commentary')) {
+        x.removeChild(item);
+      }
+    }
+  }
+}
+
+
 function sendMultiAnswer(q_container) {
   let quiz_id = q_container.parentElement.id.slice(5);
   let multi_correct_count = result[utf8_to_b64(q_container.childNodes[0].innerText)];
   let checked_multi_correct = 0;
   for (let x of q_container.parentNode.getElementsByClassName('answer')) {
+    clearExtraComment(x);
     let comment = document.createElement('p');
-    if (x.childElementCount > 2) {
-      x.removeChild(x.children[2]);
-    }
     comment.className = 'commentary';
     comment.innerText = b64_to_utf8(
       result[
