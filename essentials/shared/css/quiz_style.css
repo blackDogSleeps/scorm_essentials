@@ -16,10 +16,10 @@
   }
 }
 
-body {
+/* body {
   background-color: #1b1b1b;
 }
-
+ */
 .answer {
   word-wrap: break-word;
 }
@@ -254,6 +254,7 @@ label {
   transition: 0.3s;
 }
 
-.uc-question {
+/* .uc-question {
   background-color: #1b1b1b;
 }
+ */
