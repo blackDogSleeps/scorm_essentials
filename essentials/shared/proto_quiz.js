@@ -22,7 +22,7 @@ function addQuestion(text, container) {
 
 function makeAnswer(answer_keys, answer_pack, answers_container, key, quiz_id) {
   for (i = 0; i < answer_keys.length; i++) {
-    result[utf8_to_b64(quiz_id)] = answer_pack
+    result[utf8_to_b64(quiz_id)] = answer_pack;
     answer = document.createElement('label');
     answer.className = 'cb_container answer';
     answer.innerText = b64_to_utf8(answer_keys[i]);
@@ -67,7 +67,7 @@ function getMultiAnswer(reply, quiz_id) {
 function getAnswer() {
   let quiz_id = this.parentElement.parentElement.id.slice(5);
   if (lastClick >= (Date.now() - delay)) {
-    return
+    return;
   }
   lastClick = Date.now();
   if (this.getElementsByTagName('span')[0].id) {
@@ -137,7 +137,7 @@ function sendSingleAnswer(commentary, q_container) {
 
 function countChecks(q_container) {
   let checks_count = 0;
-  for (item of q_container.parentNode.children[1].children) {
+  for (let item of q_container.parentNode.children[1].children) {
     if (item.getElementsByTagName('input')[0].checked) {
       checks_count += 1;
     }
@@ -214,7 +214,7 @@ function make_quiz() {
                question_objects[i].answers,
                answers_container,
                key,
-               i + 1)
+               i + 1);
 
 
     button_container.append(button);
