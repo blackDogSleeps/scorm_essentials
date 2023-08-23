@@ -79,23 +79,11 @@ function getAnswer() {
 }
 
 
-function clearExtraComment(x) {
-  if (x.childElementCount > 2) {
-    for (item of x.children) {
-      if (item.tagName == 'p' && item.classList.contains('commentary')) {
-        x.removeChild(item);
-      }
-    }
-  }
-}
-
-
 function sendMultiAnswer(q_container) {
   let quiz_id = q_container.parentElement.id.slice(5);
   let multi_correct_count = result[utf8_to_b64(q_container.childNodes[0].innerText)];
   let checked_multi_correct = 0;
   for (let x of q_container.parentNode.getElementsByClassName('answer')) {
-    clearExtraComment(x);
     let comment = document.createElement('p');
     comment.className = 'commentary';
     comment.innerText = b64_to_utf8(
@@ -115,7 +103,7 @@ function sendMultiAnswer(q_container) {
     }
   }
   if (checked == 0) {
-    sendAnswer();
+    return;
   }
   else if (checked_multi_correct == multi_correct_count && multi_correct_count == checked) {
     let right = document.getElementsByClassName('right_answer');
@@ -147,9 +135,25 @@ function sendSingleAnswer(commentary, q_container) {
 }
 
 
+function countChecks(q_container) {
+  let checks_count = 0;
+  for (item of q_container.parentNode.children[1].children) {
+    if (item.getElementsByTagName('input')[0].checked) {
+      checks_count += 1;
+    }
+  }
+  return checks_count;
+}
+
+
 function sendAnswer() {
   let number = this.id.slice(7);
   let q_container = document.getElementById('question_container' + number);
+
+  if (countChecks(q_container) < 1) {
+    return;
+  }
+  
   let commentary = document.createElement('p');
   commentary.className = 'commentary';
   if ('multi' == this.classList[1]) {
