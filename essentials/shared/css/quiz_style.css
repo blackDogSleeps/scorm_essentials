@@ -1,6 +1,14 @@
+@media only screen and (min-width: 901px) {
+  .question_container,
+  .answers_container {
+    margin-left: 150px;
+    margin-right: 150px;
+  }
+}
+
 @media only screen and (max-width: 900px) {
   .quiz_container_mobile {
-    width: 90%;
+    width: 90% !important;
   }
 }
 /* On screens that are 600px wide or less, the background color is olive */
@@ -12,14 +20,20 @@
   }
 
   .quiz_container_mobile {
-    width: 100px;
+    width: calc(100% - 30px) !important;
+  }
+  
+  .question_container,
+  .answers_container {
+    margin-left: 10px;
+    margin-right: 10px;
   }
 }
 
-/* body {
-  background-color: #1b1b1b;
-}
- */
+/*body {*/
+  /*background-color: #1b1b1b;*/
+/*}*/
+
 .answer {
   word-wrap: break-word;
 }
@@ -30,7 +44,7 @@
   font-size: 18px;
   line-height: 1.5;
   margin-top: 50px;
-  width: 1001px;
+  width: calc(100% - 100px);
   max-width: 1001px;
   border-radius: 10px;
   background-color: #ebedf0;
@@ -49,13 +63,6 @@
   transition: 0.5s;
 }
 
-.question_container,
-.answers_container {
-  margin-left: 150px;
-  margin-right: 150px;
-}
-
-
 .button_container {
   position: relative;
   margin-left:auto;
@@ -65,6 +72,7 @@
   left:;
   height: 80px;
 }
+
 .submit_button,
 .restart_button,
 .disabled_button {
@@ -85,9 +93,11 @@
   background-color: #1F2229;
   color: #ffffff;
 }
+
 .restart_button {
   display:none;
 }
+
 .submit_button:hover,
 .restart_button:hover {
   background-color: #626469;
